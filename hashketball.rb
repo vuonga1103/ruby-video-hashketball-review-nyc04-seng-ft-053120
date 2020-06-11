@@ -204,3 +204,9 @@ def big_shoe_rebounds
   
   player_number_rebounds
 end
+
+def most_points_scored
+  all_players(game_hash)
+end
+
+pp all_players(game_hash)
