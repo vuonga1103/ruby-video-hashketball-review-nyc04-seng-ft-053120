@@ -1,6 +1,3 @@
-require "pry"
-# Write your code below game_hash
-
 def game_hash
   {
     home: {
@@ -128,7 +125,6 @@ def game_hash
   }
 end
 
-# Write code here
 
 # Helper function to output an array, within which are hashes of each individual players on each team
 def all_players(game_hash)
@@ -204,3 +200,77 @@ def big_shoe_rebounds
   
   player_number_rebounds
 end
+
+def most_points_scored
+  # Returns player with the most points scored
+  player_with_most_points = ""
+  most_points = nil
+
+  all_players(game_hash).each do |player|
+    if most_points == nil || player[:points] > most_points
+      player_with_most_points = player[:player_name]
+      most_points = player[:points]
+    end
+  end
+  player_with_most_points
+end
+
+
+# Helper function that takes a team hash and calculate the total point
+def total_point(team)
+  team[:players].collect { |player| player[:points] }.sum
+end
+
+
+def winning_team
+  # Determines winning team based on points
+  most_score = nil
+  winning_team = ""
+
+  game_hash.each do |key, val|
+    if most_score == nil || total_point(val) > most_score
+      most_score = total_point(val)
+      winning_team = val[:team_name]
+    end
+  end
+
+  winning_team
+end
+
+
+def player_with_longest_name
+  # Returns longest name player
+  longest_name = nil
+
+  all_players(game_hash).each do |player|
+    if longest_name == nil || player[:player_name].length > longest_name.length
+      longest_name = player[:player_name]
+    end
+  end
+
+  longest_name
+end
+
+
+# Returns player with the most steal
+def player_with_most_steal
+  most_steals = nil
+  most_steal_player = nil
+
+  all_players(game_hash).each do |player|
+    if most_steals == nil || player[:steals] > most_steals
+      most_steals = player[:steals]
+      most_steal_player = player[:player_name]
+    end
+  end
+
+  most_steal_player
+end
+
+
+def long_name_steals_a_ton?
+# Returns true if the longest name player is also the player with the most steal
+  player_with_most_steal == player_with_longest_name
+end
+
+p long_name_steals_a_ton?
